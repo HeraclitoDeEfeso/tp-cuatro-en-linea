@@ -123,7 +123,7 @@ public class Tablero {
 
 		switch (casillero) {
 		
-			case AMARILLO:
+			case VERDE:
 				pintura = Color.YELLOW;
 				break;
 				
