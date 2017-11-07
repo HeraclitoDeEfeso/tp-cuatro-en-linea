@@ -1,94 +1,238 @@
 package juego;
 
 /**
- * Juego Cuatro en LÌ≠nea
- * 
- * Reglas:
- * 
- * 		...
- *
+ * Juego Cuatro en L√≠nea Reglas: EL juego esta dise√±ado unicamente para ser
+ * jugado por dos personas, termina cuando uno de los jugadores logra colocar 4
+ * fichas en linea recta consecutiva en cualquier direccion, o cuando ya no hay
+ * casilleros vacios. El Tablero se construye al inicio del juego, pero el
+ * numero de filas y columnas debe ser mayor a 4.
  */
+
 public class CuatroEnLinea {
 
-	/**
-	 * pre : 'filas' y 'columnas' son mayores o iguales a 4.
-	 * post: empieza el juego entre el jugador que tiene fichas rojas, identificado como 
-	 * 		 'jugadorRojo' y el jugador que tiene fichas amarillas, identificado como
-	 * 		 'jugadorAmarillo'. 
-	 * 		 Todo el tablero est· vacÌo.
-	 * 
-	 * @param filas : cantidad de filas que tiene el tablero.
-	 * @param columnas : cantidad de columnas que tiene el tablero.
-	 * @param jugadorRojo : nombre del jugador con fichas rojas.
-	 * @param jugadorAmarillo : nombre del jugador con fichas amarillas.
-	 */
-	public CuatroEnLinea(int filas, int columnas, String jugadorRojo, String jugadorAmarillo) {
+	private int filas = 0;
+	private int columnas = 0;
+	private String jugadorRojo;
+	private String jugadorVerde;
+	private String jugadorActual;
+	private Casillero[][] casilleros;
 
+	/**
+	 * pre : 'filas' y 'columnas' son mayores o iguales a 4, los nombres de los
+	 * jugadores no pueden estar vacios. Post: empieza el juego entre el jugador
+	 * que tiene fichas rojas, identificado como 'jugadorRojo' y el jugador que
+	 * tiene fichas verdes, identificado como 'jugadorVerde'. Todo el tablero
+	 * est√° vac√≠o.
+	 * 
+	 * @param filas
+	 *            : cantidad de filas que tiene el tablero.
+	 * @param columnas
+	 *            : cantidad de columnas que tiene el tablero.
+	 * @param jugadorRojo
+	 *            : nombre del jugador con fichas rojas.
+	 * @param jugadorVerde
+	 *            : nombre del jugador con fichas verde.
+	 */
+	public CuatroEnLinea(int filas, int columnas, String jugadorRojo,
+			String jugadorVerde) {
+//		if (filas > 15) {
+//			throw new Error("El n√∫mero de filas no debe superar el 15");
+//		}
+//		if (columnas > 15) {
+//			throw new Error("El n√∫mero de columnas no debe superar el 15");
+//		}
+		if (filas < 4) {
+			throw new Error("El n√∫mero de filas deben ser por lo menos 4");
+		}
+		if (columnas < 4) {
+			throw new Error("El n√∫mero de columnas debe ser por lo menos 4");
+		}
+		if ((jugadorRojo == null) || (jugadorRojo.equals(""))) {
+			throw new Error("El campo Jugador Rojo no puede estar vac√≠o");
+		}
+		if ((jugadorVerde == null) || (jugadorVerde.equals(""))) {
+			throw new Error("El campo Jugador Amarillo no puede estar vac√≠o");
+		}
+		this.filas = filas;
+		this.columnas = columnas;
+		this.jugadorRojo = jugadorRojo;
+		this.jugadorVerde = jugadorVerde;
+		this.jugadorActual = jugadorRojo;
+		casilleros = new Casillero[columnas][filas];
+
+		for (int i = 0; i < columnas; i++) {
+			for (int j = 0; j < filas; j++) {
+				casilleros[i][j] = Casillero.VACIO;
+			}
+		}
 	}
 
 	/**
-	 * post: devuelve la cantidad m·xima de fichas que se pueden apilar en el tablero.
+	 * post: devuelve la cantidad m√°xima de fichas que se pueden apilar en el
+	 * tablero.
 	 */
 	public int contarFilas() {
-		
-		return 4;
+
+		return this.filas;
 	}
 
 	/**
-	 * post: devuelve la cantidad m·xima de fichas que se pueden alinear en el tablero.
+	 * post: devuelve la cantidad m√°xima de fichas que se pueden alinear en el
+	 * tablero.
 	 */
 	public int contarColumnas() {
-		
-		return 4;
+
+		return this.columnas;
 	}
 
 	/**
-	 * pre : fila est· en el intervalo [1, contarFilas()],
-	 * 		 columnas est· en el intervalo [1, contarColumnas()].
-	 * post: indica quÈ ocupa el casillero en la posiciÛn dada por fila y columna.
+	 * pre : fila est√° en el intervalo [1, contarFilas()], columnas est√° en el
+	 * intervalo [1, contarColumnas()]. post: indica qu√© ocupa el casillero en
+	 * la posici√≥n dada por fila y columna.
 	 * 
 	 * @param fila
 	 * @param columna
 	 */
 	public Casillero obtenerCasillero(int fila, int columna) {
-		
-		return Casillero.VACIO;
+
+		if ((fila < 1 || fila > contarFilas())
+				&& (columna < 1 || columna > contarColumnas())) {
+			throw new Error(
+					"El n√∫mero de fila o columna corresponde al tablero actual");
+		}
+
+		return casilleros[columna - 1][fila - 1];
 	}
-	
+
 	/**
-	 * pre : el juego no terminÛ, columna est· en el intervalo [1, contarColumnas()]
-	 * 		 y a˙n queda un Casillero.VACIO en la columna indicada. 
-	 * post: deja caer una ficha en la columna indicada.
-	 * 
-	 * @param columna
+	 * pre : el juego no termin√≥, columna est√° en el intervalo [1,
+	 * contarColumnas()] y a√∫n queda un Casillero.VACIO en la columna indicada.
+	 * post: deja caer una ficha en la columna indicada.@param columna
 	 */
 	public void soltarFicha(int columna) {
-		
+		if (!termino()) {
+			columna--;
+			if (columna < 0 || columna > contarColumnas()
+					|| noQuedanCasillerosVaciosEnLaColumna(columna)) {
+				throw new Error(
+						"La columna seleccionada no puede ser seleccionada");
+			}
+
+			int fila = filas - 1;
+			for (int i = 0; i < casilleros[columna].length; i++) {
+				if (casilleros[columna][i] != Casillero.VACIO) {
+					fila--;
+				}
+			}
+			if (jugadorActual == jugadorRojo) {
+				casilleros[columna][fila] = Casillero.ROJO;
+				jugadorActual = jugadorVerde;
+			} else {
+				casilleros[columna][fila] = Casillero.VERDE;
+				jugadorActual = jugadorRojo;
+			}
+		}
 	}
-	
+
+	/**Post: indica si quedan casilleros vacios en la columna */
+	private boolean noQuedanCasillerosVaciosEnLaColumna(int columna) {
+		boolean estanTodosLosCasillerosOcupados = false;
+		for (int j = 0; j < contarFilas(); j++) {
+			if (casilleros[columna][j] == Casillero.VACIO) {
+				estanTodosLosCasillerosOcupados = false;
+			}
+		}
+		return estanTodosLosCasillerosOcupados;
+	}
+
 	/**
-	 * post: indica si el juego terminÛ porque uno de los jugadores
-	 * 		 ganÛ o no existen casilleros vacÌos.
+	 * post: indica si el juego termin√≥ porque uno de los jugadores gan√≥ o no
+	 * existen casilleros vac√≠os.
 	 */
 	public boolean termino() {
-		
-		return false;
+		boolean partidoTerminado = false;
+		if (hayGanador() || noExistenCasillerosVacios()) {
+			partidoTerminado = true;
+		}
+
+		return partidoTerminado;
 	}
 
-	/**
-	 * post: indica si el juego terminÛ y tiene un ganador.
-	 */
+	/** POST; indica si existe algun casillero vacio */
+	private boolean noExistenCasillerosVacios() {
+		boolean estanTodosLosCasillerosOcupados = true;
+		for (int i = 0; i < contarColumnas(); i++) {
+			for (int j = 0; j < contarFilas(); j++) {
+				if (casilleros[i][j] == Casillero.VACIO) {
+					estanTodosLosCasillerosOcupados = false;
+				}
+			}
+		}
+		return estanTodosLosCasillerosOcupados;
+	}
+
+	/** post: indica si el juego termin√≥ y tiene un ganador. */
 	public boolean hayGanador() {
-		
-		return false;
+
+		boolean alguienGano = false;
+		for (int i = 0; i < contarColumnas(); i++) {
+			for (int j = 0; j < contarFilas(); j++) {
+				// vertical
+				if (j + 3 < contarFilas()
+						&& casilleros[i][j] != Casillero.VACIO
+						&& casilleros[i][j] == casilleros[i][j + 1]
+						&& casilleros[i][j] == casilleros[i][j + 2]
+						&& casilleros[i][j] == casilleros[i][j + 3]) {
+
+					alguienGano = true;
+				}
+				// horizontal
+				if (i + 3 < contarColumnas()
+						&& casilleros[i][j] != Casillero.VACIO
+						&& casilleros[i][j] == casilleros[i + 1][j]
+						&& casilleros[i][j] == casilleros[i + 2][j]
+						&& casilleros[i][j] == casilleros[i + 3][j]) {
+
+					alguienGano = true;
+				}
+				if (i + 3 < contarColumnas() && j + 3 < contarFilas()) {
+					//diagonal decreciente "\"
+					if (casilleros[i][j] != Casillero.VACIO
+							&& casilleros[i][j] == casilleros[i + 1][j + 1]
+							&& casilleros[i][j] == casilleros[i + 2][j + 2]
+							&& casilleros[i][j] == casilleros[i + 3][j + 3]) {
+
+						alguienGano = true;
+					}
+					//diagonal creciente "/" 
+					if (casilleros[i][j + 3] != Casillero.VACIO
+							&& casilleros[i][j + 3] == casilleros[i + 1][j + 2]
+							&& casilleros[i][j + 3] == casilleros[i + 2][j + 1]
+							&& casilleros[i][j + 3] == casilleros[i + 3][j]) {
+
+						alguienGano = true;
+					}
+				}
+			}
+		}
+
+		return alguienGano;
 	}
 
 	/**
-	 * pre : el juego terminÛ.
-	 * post: devuelve el nombre del jugador que ganÛ el juego.
+	 * pre : el juego termin√≥. post: devuelve el nombre del jugador que gan√≥ el
+	 * juego.
 	 */
 	public String obtenerGanador() {
-		
-		return null;
+		String ganador = "Empataron";
+		if (hayGanador()) {
+			if (jugadorActual == jugadorRojo) {
+				ganador = jugadorVerde;
+			} else {
+				ganador = jugadorRojo;
+			}
+		}
+
+		return ganador;
 	}
 }
