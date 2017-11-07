@@ -6,7 +6,7 @@ Año 2017
 Comisión 3 
 
 Grupo de Trabajo correspondiente a:
-- Matías
+- Matías Monti
 - Jorge Ramirez
 - Alejandro Araneda
 
