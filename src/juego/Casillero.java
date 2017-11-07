@@ -4,5 +4,5 @@ public enum Casillero {
 
 	VACIO,
 	ROJO,
-	AMARILLO
+	VERDE
 }
