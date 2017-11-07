@@ -2,6 +2,8 @@ package juego;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 public class CuatroEnLineaTest {
@@ -95,48 +97,48 @@ public class CuatroEnLineaTest {
 		assertEquals(11, miJuego.contarColumnas());
 	}
 
-	@Test (expected = Error.class)
+	@Test(expected = Error.class)
 	public void verificarQueNoPermitaAccederCasilleroDeColumnaMenorAUno() {
 		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorRojo",
 				"jugadorVerde");
 		miJuego.obtenerCasillero(1, 0);
 	}
 
-	@Test (expected = Error.class)
+	@Test(expected = Error.class)
 	public void verificarQueNoPermitaAccederCasilleroDeColumnaMayorAlLimite() {
 		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorRojo",
 				"jugadorVerde");
 		miJuego.obtenerCasillero(1, 12);
 	}
-	
-	@Test (expected = Error.class)
+
+	@Test(expected = Error.class)
 	public void verificarQueNoPermitaAccederCasilleroDeLineaMenorAUno() {
 		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorRojo",
 				"jugadorVerde");
 		miJuego.obtenerCasillero(0, 1);
 	}
 
-	@Test (expected = Error.class)
+	@Test(expected = Error.class)
 	public void verificarQueNoPermitaAccederCasilleroDeLineaMayorAlLimite() {
 		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorRojo",
 				"jugadorVerde");
 		miJuego.obtenerCasillero(6, 1);
 	}
-	
-	@Test (expected = Error.class)
+
+	@Test(expected = Error.class)
 	public void verificarQueNoPermitaAccederCasilleroDeLineaYColumnaMayoresAlLimite() {
 		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorRojo",
 				"jugadorVerde");
 		miJuego.obtenerCasillero(6, 12);
 	}
-	
-	@Test (expected = Error.class)
+
+	@Test(expected = Error.class)
 	public void verificarQueNoPermitaAccederCasilleroDeLineaYColumnaMenoresAUno() {
 		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorRojo",
 				"jugadorVerde");
 		miJuego.obtenerCasillero(0, 0);
 	}
-	
+
 	@Test
 	public void verificarQueUnJuegoDeCuatroPorCuatroComienzaVacio() {
 		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
@@ -144,41 +146,76 @@ public class CuatroEnLineaTest {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				assertTrue(
-						"Verificar que al iniciar un Juego de 4 x 4 la casilla de fila " + (i + 1) + " y columna " + (j + 1) + " esté vacía.",
+						"Verificar que al iniciar un Juego de 4 x 4 la casilla de fila "
+								+ (i + 1) + " y columna " + (j + 1)
+								+ " esté vacía.",
 						miJuego.obtenerCasillero(i + 1, j + 1) == Casillero.VACIO);
 			}
 		}
 	}
 
-//	private Casillero[][] obtenerTablero(CuatroEnLinea miJuego) {
-//		Casillero[][] tablero = new Casillero[miJuego.contarFilas()][miJuego
-//				.contarColumnas()];
-//		for (int i = 0; i < miJuego.contarFilas(); i++) {
-//			for (int j = 0; j < miJuego.contarColumnas(); j++) {
-//				tablero[i][j] = miJuego.obtenerCasillero(i + 1, j + 1);
-//			}
-//		}
-//		return tablero;
-//	}
-//
-//	@Test
-//	public void testSoltarFicha() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testTermino() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testHayGanador() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testObtenerGanador() {
-//		fail("Not yet implemented");
-//	}
+	// @Test
+	// public void verificarQueUnJuegoDeCuatroPorCuatroComienzaVacio() {
+	// CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+	// "jugadorVerde");
+	// Casillero[][] tableroVacio = {
+	// {Casillero.VACIO, Casillero.VACIO, Casillero.VACIO, Casillero.VACIO},
+	// {Casillero.VACIO, Casillero.VACIO, Casillero.VACIO, Casillero.VACIO},
+	// {Casillero.VACIO, Casillero.VACIO, Casillero.VACIO, Casillero.VACIO},
+	// {Casillero.VACIO, Casillero.VACIO, Casillero.VACIO, Casillero.VACIO}};
+	// assertTrue(Arrays.deepEquals(tableroVacio, obtenerTablero(miJuego)));
+	// }
 
+	@Test
+	public void verificarQueElPrimeroEnJugarSeaElJugadorRojo() {
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo", "jugadorVerde");
+		miJuego.soltarFicha(1);
+		assertEquals(Casillero.ROJO, miJuego.obtenerCasillero(4, 1));
+	}
+	
+	@Test
+	public void verificarQueElSegundoEnJugarSeaElJugadorVerde() {
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo", "jugadorVerde");
+		miJuego.soltarFicha(1);
+		miJuego.soltarFicha(2);
+		assertEquals(Casillero.VERDE, miJuego.obtenerCasillero(4, 2));
+	}
+	
+	@Test
+	public void verificarQueAlJugarEnLaMismaColumnaLasFichasSeApilen() {
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo", "jugadorVerde");
+		jugarPartida(new int[]{1,1}, miJuego);
+		assertEquals(Casillero.VERDE, miJuego.obtenerCasillero(3, 1));
+	}
+	// @Test
+	// public void testTermino() {
+	// fail("Not yet implemented");
+	// }
+	//
+	// @Test
+	// public void testHayGanador() {
+	// fail("Not yet implemented");
+	// }
+	//
+	// @Test
+	// public void testObtenerGanador() {
+	// fail("Not yet implemented");
+	// }
+
+	private Casillero[][] obtenerTablero(CuatroEnLinea miJuego) {
+		Casillero[][] tablero = new Casillero[miJuego.contarFilas()][miJuego
+				.contarColumnas()];
+		for (int i = 0; i < miJuego.contarFilas(); i++) {
+			for (int j = 0; j < miJuego.contarColumnas(); j++) {
+				tablero[i][j] = miJuego.obtenerCasillero(i + 1, j + 1);
+			}
+		}
+		return tablero;
+	}
+
+	private void jugarPartida(int[] columnasJugadas, CuatroEnLinea miJuego) {
+		for (int i = 0; i < columnasJugadas.length; i++) {
+			miJuego.soltarFicha(columnasJugadas[i]);
+		}
+	}
 }
