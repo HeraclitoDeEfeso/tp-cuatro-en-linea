@@ -18,11 +18,11 @@ public class CuatroEnLinea {
 	private Casillero[][] casilleros;
 
 	/**
-	 * pre : 'filas' y 'columnas' son mayores o iguales a 4, los nombres de los
-	 * jugadores no pueden estar vacios. Post: empieza el juego entre el jugador
-	 * que tiene fichas rojas, identificado como 'jugadorRojo' y el jugador que
-	 * tiene fichas verdes, identificado como 'jugadorVerde'. Todo el tablero
-	 * está vacío.
+	 * pre : 'filas' y 'columnas' son mayores o iguales a 4 y menores a 16, los 
+	 * nombres de los jugadores no pueden estar vacios. 
+	 * Post: empieza el juego entre el jugador que tiene fichas rojas, identificado
+	 * como 'jugadorRojo' y el jugador que tiene fichas verdes, identificado como 
+	 * 'jugadorVerde'. Todo el tablero está vacío.
 	 * 
 	 * @param filas
 	 *            : cantidad de filas que tiene el tablero.
@@ -35,12 +35,12 @@ public class CuatroEnLinea {
 	 */
 	public CuatroEnLinea(int filas, int columnas, String jugadorRojo,
 			String jugadorVerde) {
-//		if (filas > 15) {
-//			throw new Error("El número de filas no debe superar el 15");
-//		}
-//		if (columnas > 15) {
-//			throw new Error("El número de columnas no debe superar el 15");
-//		}
+		if (filas > 15) {
+			throw new Error("El número de filas no debe superar el 15");
+		}
+		if (columnas > 15) {
+			throw new Error("El número de columnas no debe superar el 15");
+		}
 		if (filas < 4) {
 			throw new Error("El número de filas deben ser por lo menos 4");
 		}
@@ -94,13 +94,14 @@ public class CuatroEnLinea {
 	 * @param columna
 	 */
 	public Casillero obtenerCasillero(int fila, int columna) {
-
-		if ((fila < 1 || fila > contarFilas())
-				&& (columna < 1 || columna > contarColumnas())) {
+		if (fila > contarFilas() || columna > contarColumnas()) {
 			throw new Error(
-					"El número de fila o columna corresponde al tablero actual");
+					"La  fila o Columna ingresada es superior a las que posee el tablero actual");
 		}
-
+		if (fila < 1 || columna < 1) {
+			throw new Error(
+					"La numeracion de los casilleros arranca desde el uno");
+		}
 		return casilleros[columna - 1][fila - 1];
 	}
 
