@@ -85,63 +85,63 @@ public class CuatroEnLineaTest {
 
 	@Test
 	public void verificarQueLasFilasDeUnJuegoDeCincoPorOnceSeanCinco() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorAmarillo",
 				"jugadorVerde");
 		assertEquals(5, miJuego.contarFilas());
 	}
 
 	@Test
 	public void verificarQueLasColumnasDeUnJuegoDeCincoPorOnceSeanOnce() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorAmarillo",
 				"jugadorVerde");
 		assertEquals(11, miJuego.contarColumnas());
 	}
 
 	@Test(expected = Error.class)
 	public void verificarQueNoPermitaAccederCasilleroDeColumnaMenorAUno() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorAmarillo",
 				"jugadorVerde");
 		miJuego.obtenerCasillero(1, 0);
 	}
 
 	@Test(expected = Error.class)
 	public void verificarQueNoPermitaAccederCasilleroDeColumnaMayorAlLimite() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorAmarillo",
 				"jugadorVerde");
 		miJuego.obtenerCasillero(1, 12);
 	}
 
 	@Test(expected = Error.class)
 	public void verificarQueNoPermitaAccederCasilleroDeLineaMenorAUno() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorAmarillo",
 				"jugadorVerde");
 		miJuego.obtenerCasillero(0, 1);
 	}
 
 	@Test(expected = Error.class)
 	public void verificarQueNoPermitaAccederCasilleroDeLineaMayorAlLimite() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorAmarillo",
 				"jugadorVerde");
 		miJuego.obtenerCasillero(6, 1);
 	}
 
 	@Test(expected = Error.class)
 	public void verificarQueNoPermitaAccederCasilleroDeLineaYColumnaMayoresAlLimite() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorAmarillo",
 				"jugadorVerde");
 		miJuego.obtenerCasillero(6, 12);
 	}
 
 	@Test(expected = Error.class)
 	public void verificarQueNoPermitaAccederCasilleroDeLineaYColumnaMenoresAUno() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(5, 11, "jugadorAmarillo",
 				"jugadorVerde");
 		miJuego.obtenerCasillero(0, 0);
 	}
 
 	@Test
 	public void verificarQueUnJuegoDeCuatroPorCuatroComienzaVacio() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -156,7 +156,7 @@ public class CuatroEnLineaTest {
 
 	// @Test
 	// public void verificarQueUnJuegoDeCuatroPorCuatroComienzaVacio() {
-	// CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+	// CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 	// "jugadorVerde");
 	// Casillero[][] tableroVacio = {
 	// {Casillero.VACIO, Casillero.VACIO, Casillero.VACIO, Casillero.VACIO},
@@ -168,36 +168,36 @@ public class CuatroEnLineaTest {
 
 	@Test(expected = Error.class)
 	public void noSePuedeSoltarFichaEnColumnaNegativa() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		miJuego.soltarFicha(-1);
 	}
 
 	@Test(expected = Error.class)
 	public void noSePuedeSoltarFichaEnColumnaCero() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		miJuego.soltarFicha(0);
 	}
 
 	@Test(expected = Error.class)
 	public void noSePuedeSoltarFichaEnUnaColumnaMayorALasDefinidasAlCrearElJuego() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		miJuego.soltarFicha(5);
 	}
 
 	@Test
 	public void verificarQueElPrimeroEnJugarSeaElPrimerJugadorDeFichasRojas() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		miJuego.soltarFicha(1);
-		assertEquals(Casillero.ROJO, miJuego.obtenerCasillero(4, 1));
+		assertEquals(Casillero.AMARILLO, miJuego.obtenerCasillero(4, 1));
 	}
 
 	@Test
 	public void verificarQueElSegundoEnJugarSeaElJugadorDeFichasVerdes() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		miJuego.soltarFicha(1);
 		miJuego.soltarFicha(2);
@@ -206,7 +206,7 @@ public class CuatroEnLineaTest {
 
 	@Test
 	public void verificarQueAlJugarEnLaMismaColumnaLasFichasSeApilen() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		miJuego.soltarFicha(1);
 		miJuego.soltarFicha(1);
@@ -216,7 +216,7 @@ public class CuatroEnLineaTest {
 
 	@Test
 	public void noSePuedenSoltarMasFichasEnUnaColumnaLlena() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		jugarPartida(new int[] { 1, 1, 1, 1 }, miJuego);
 		Casillero[][] tableroPrevio = obtenerTablero(miJuego);
@@ -226,7 +226,7 @@ public class CuatroEnLineaTest {
 
 	@Test
 	public void alSoltarMalUnaFichaNoPierdeElTurno() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		jugarPartida(new int[] { 1, 1, 1, 1 }, miJuego);
 		miJuego.soltarFicha(1);
@@ -245,14 +245,14 @@ public class CuatroEnLineaTest {
 
 	@Test
 	public void alComenzarElJuegoNoTermino() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		assertFalse(miJuego.termino());
 	}
 
 	@Test
 	public void despuesDeUnaPartidaConElPrimerJugadorGanadorElJuegoTermino() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		jugarPartida(new int[] { 1, 1, 2, 2, 3, 3, 4 }, miJuego);
 		assertTrue(miJuego.termino());
@@ -260,7 +260,7 @@ public class CuatroEnLineaTest {
 
 	@Test
 	public void despuesDeUnaPartidaConElSegundoJugadorGanadorElJuegoTermino() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		jugarPartida(new int[] { 1, 2, 1, 2, 1, 2, 3, 2 }, miJuego);
 		assertTrue(miJuego.termino());
