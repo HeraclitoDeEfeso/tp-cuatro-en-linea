@@ -1,6 +1,10 @@
 package juego;
 
+import java.io.File;
+
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -8,25 +12,38 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
- * Aplicación del juego Cuatro en Lí­nea.
+ * AplicaciÃ³n del juego Cuatro en LÃ­Â­nea.
  * 
  * Punto de entrada del programa.
  * 
  */
 public class Aplicacion extends Application {
 
-	public static final String TITULO = "Cuatro en Lí­nea";
+	public static final String TITULO = "Cuatro en LÃ­Â­nea";
 	
 	private GridPane grilla;
 	
-	private TextField campoNombreJugadorRojo;
-	private TextField campoNombreJugadorAmarillo;
+	private Label jugadorAmarillo = new Label("Jugador Amarillo: ");
+	private Label jugadorVerde = new Label("Jugador verde: ");
+	private Label filas = new Label("filas: ");
+	private Label columnas = new Label("columnas: ");
 
+	
+	private TextField campoNombreJugadorVerde;
+	private TextField campoNombreJugadorAmarillo;
+	
 	private TextField campoColumnas;
 	private TextField campoFilas;
 
@@ -34,6 +51,13 @@ public class Aplicacion extends Application {
 
 	@Override
 	public void start(Stage escenarioPrincipal) {
+		
+		//String path = "C:/Users/Public/Music/Sample Music/Kalimba.mp3";
+		//Media media = new Media(new File (path).toURI().toString());
+		//MediaPlayer mediaPlayer= new MediaPlayer(media);
+		//mediaPlayer.setAutoPlay(true);
+		//MediaView mediaView = new MediaView(mediaPlayer);
+
 
 		crearGrilla();
 
@@ -49,20 +73,23 @@ public class Aplicacion extends Application {
 		grilla.setAlignment(Pos.CENTER);
 		grilla.setHgap(20);
 		grilla.setVgap(20);
+		grilla.setStyle("-fx-background-color:black");
+
 		
 		Text textoTitulo = new Text(TITULO);
-		textoTitulo.setFont(new Font(16));
-		
+		textoTitulo.setFill(Color.WHITE);
+		textoTitulo.setFont(Font.font("tahoma",FontWeight.BOLD,FontPosture.REGULAR, 30));
+
 		crearControles();
 
 		grilla.add(textoTitulo, 0, 0, 2, 1);
-		grilla.add(new Label("Jugador Rojo"), 0, 1);
-		grilla.add(campoNombreJugadorRojo, 1, 1);
-		grilla.add(new Label("Jugador Amarillo"), 0, 2);
-		grilla.add(campoNombreJugadorAmarillo, 1, 2);
-		grilla.add(new Label("Filas"), 0, 3);
+		grilla.add(jugadorVerde, 0, 2);
+		grilla.add(campoNombreJugadorVerde, 1, 2);
+		grilla.add(jugadorAmarillo, 0, 1);
+		grilla.add(campoNombreJugadorAmarillo, 1, 1);
+		grilla.add(filas, 0, 3);
 		grilla.add(campoFilas, 1, 3);
-		grilla.add(new Label("Columnas"), 0, 4);
+		grilla.add(columnas, 0, 4);
 		grilla.add(campoColumnas, 1, 4);
 		grilla.add(botonIniciar, 0, 5, 2, 1);
 		
@@ -72,31 +99,36 @@ public class Aplicacion extends Application {
 
 	private void crearControles() {
 
-		campoNombreJugadorRojo = new TextField("rojo");
+		campoNombreJugadorVerde = new TextField("Verde");
+		campoNombreJugadorVerde.setFont(Font.font("tahoma",FontWeight.BOLD,FontPosture.REGULAR, 15));
 		campoNombreJugadorAmarillo = new TextField("amarillo");
+		campoNombreJugadorAmarillo.setFont(Font.font("tahoma",FontWeight.BOLD,FontPosture.REGULAR, 15));
 		
+		campoNombreJugadorVerde.setStyle("-fx-background-color:lightgreen");
+		campoNombreJugadorAmarillo.setStyle("-fx-background-color:yellow");
+
 		campoColumnas = new TextField("7");
 		campoFilas = new TextField("7");
-		
+
 		botonIniciar = new Button("Iniciar");
 		botonIniciar.setOnAction(new IniciarJuego(this));
+
 	}
 	
 	/**
 	 * post: crea un juego CuatroEnLinea, lo asocia a una Tablero 
-	 * 		 y comienza su ejecución.
+	 * 		 y comienza su ejecuciÃ³n.
 	 * 
 	 */
 	public void iniciar() {
 		
-		String nombreJugadorRojo = campoNombreJugadorRojo.getText();
+		String nombreJugadorVerde = campoNombreJugadorVerde.getText();
 		String nombreJugadorAmarillo = campoNombreJugadorAmarillo.getText();
 		int filas = Integer.parseInt(campoFilas.getText());
 		int columnas = Integer.parseInt(campoColumnas.getText());
-		
-		CuatroEnLinea juego = new CuatroEnLinea(filas, columnas, 
-												nombreJugadorRojo, nombreJugadorAmarillo);
-		
+
+		CuatroEnLinea juego = new CuatroEnLinea(filas, columnas, nombreJugadorVerde, nombreJugadorAmarillo);
+
 		Tablero tablero = new Tablero(juego);
 		tablero.mostrar();
 	}
