@@ -69,7 +69,7 @@ public class CuatroEnLineaTest {
 	}
 
 	@Test(expected = Error.class)
-	public void crearUnCruatroEnLineaConCantidadDeFilasYDeColumnasInferiorAlMinimoSinNombreDeJugadorRojo() {
+	public void crearUnCruatroEnLineaConCantidadDeFilasYDeColumnasInferiorAlMinimoSinNombreDeJugadorAmarillo() {
 		new CuatroEnLinea(3, 3, "", "jugadorVerde");
 	}
 
@@ -238,7 +238,7 @@ public class CuatroEnLineaTest {
 						Casillero.VACIO },
 				{ Casillero.VERDE, Casillero.VACIO, Casillero.VACIO,
 						Casillero.VACIO },
-				{ Casillero.AMARILLO, Casillero.ROJO, Casillero.VACIO,
+				{ Casillero.AMARILLO, Casillero.AMARILLO, Casillero.VACIO,
 						Casillero.VACIO } };
 		assertTrue(Arrays.deepEquals(tableroEsperado, obtenerTablero(miJuego)));
 	}
