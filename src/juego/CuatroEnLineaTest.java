@@ -9,13 +9,13 @@ import org.junit.Test;
 public class CuatroEnLineaTest {
 
 	@Test(expected = Error.class)
-	public void crearUnCruatroEnLineaSinNombreDeJugadorRojo() {
+	public void crearUnCruatroEnLineaSinNombreDeJugadorAmarillo() {
 		new CuatroEnLinea(4, 4, null, "jugadorVerde");
 	}
 
 	@Test(expected = Error.class)
 	public void crearUnCruatroEnLineaSinNombreDeJugadorVerde() {
-		new CuatroEnLinea(4, 4, "jugadorRojo", "");
+		new CuatroEnLinea(4, 4, "jugadorAmarillo", "");
 	}
 
 	@Test(expected = Error.class)
@@ -25,17 +25,17 @@ public class CuatroEnLineaTest {
 
 	@Test(expected = Error.class)
 	public void crearUnCruatroEnLineaConCantidadDeColumnasInferiorAlMinimo() {
-		new CuatroEnLinea(4, 3, "jugadorRojo", "jugadorVerde");
+		new CuatroEnLinea(4, 3, "jugadorAmarillo", "jugadorVerde");
 	}
 
 	@Test(expected = Error.class)
-	public void crearUnCruatroEnLineaConCantidadDeColumnasInferiorAlMinimoSinNombreDeJugadorRojo() {
+	public void crearUnCruatroEnLineaConCantidadDeColumnasInferiorAlMinimoSinNombreDeJugadorAmarillo() {
 		new CuatroEnLinea(4, 3, "", "jugadorVerde");
 	}
 
 	@Test(expected = Error.class)
 	public void crearUnCruatroEnLineaConCantidadDeColumnasInferiorAlMinimoSinNombreDeJugadorVerde() {
-		new CuatroEnLinea(4, 3, "jugadorRojo", null);
+		new CuatroEnLinea(4, 3, "jugadorAmarillo", null);
 	}
 
 	@Test(expected = Error.class)
@@ -45,7 +45,7 @@ public class CuatroEnLineaTest {
 
 	@Test(expected = Error.class)
 	public void crearUnCruatroEnLineaConCantidadDeFilasInferiorAlMinimo() {
-		new CuatroEnLinea(3, 4, "jugadorRojo", "jugadorVerde");
+		new CuatroEnLinea(3, 4, "jugadorAmarillo", "jugadorVerde");
 	}
 
 	@Test(expected = Error.class)
@@ -55,7 +55,7 @@ public class CuatroEnLineaTest {
 
 	@Test(expected = Error.class)
 	public void crearUnCruatroEnLineaConCantidadDeFilasInferiorAlMinimoSinNombreDeJugadorVerde() {
-		new CuatroEnLinea(3, 4, "jugadorRojo", null);
+		new CuatroEnLinea(3, 4, "jugadorAmarillo", null);
 	}
 
 	@Test(expected = Error.class)
@@ -65,7 +65,7 @@ public class CuatroEnLineaTest {
 
 	@Test(expected = Error.class)
 	public void crearUnCruatroEnLineaConCantidadDeFilasYDeColumnasInferioresAlMinimo() {
-		new CuatroEnLinea(3, 3, "jugadorRojo", "jugadorVerde");
+		new CuatroEnLinea(3, 3, "jugadorAmarillo", "jugadorVerde");
 	}
 
 	@Test(expected = Error.class)
@@ -148,7 +148,7 @@ public class CuatroEnLineaTest {
 				assertTrue(
 						"Verificar que al iniciar un Juego de 4 x 4 la casilla de fila "
 								+ (i + 1) + " y columna " + (j + 1)
-								+ " esté vacía.",
+								+ " estÃ© vacÃ­a.",
 						miJuego.obtenerCasillero(i + 1, j + 1) == Casillero.VACIO);
 			}
 		}
@@ -268,7 +268,7 @@ public class CuatroEnLineaTest {
 
 	@Test
 	public void despuesDeUnaPartidaEmpatadaElJuegoTermino() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		jugarPartida(
 				new int[] { 1, 2, 1, 2, 1, 2, 3, 4, 3, 4, 3, 4, 2, 1, 4, 3 },
@@ -278,14 +278,14 @@ public class CuatroEnLineaTest {
 
 	@Test
 	public void alComenzarElJuegoNoHayGanador() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		assertFalse(miJuego.hayGanador());
 	}
 
 	@Test
 	public void despuesDeUnaPartidaConElPrimerJugadorGanadorHayGanador() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		jugarPartida(new int[] { 1, 1, 2, 2, 3, 3, 4 }, miJuego);
 		assertTrue(miJuego.hayGanador());
@@ -293,7 +293,7 @@ public class CuatroEnLineaTest {
 
 	@Test
 	public void despuesDeUnaPartidaConElSegundoJugadorGanadorHayGanador() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		jugarPartida(new int[] { 1, 2, 1, 2, 1, 2, 3, 2 }, miJuego);
 		assertTrue(miJuego.hayGanador());
@@ -301,7 +301,7 @@ public class CuatroEnLineaTest {
 
 	@Test
 	public void despuesDeUnaPartidaEmpatadaNoHayGanador() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		jugarPartida(
 				new int[] { 1, 2, 1, 2, 1, 2, 3, 4, 3, 4, 3, 4, 2, 1, 4, 3 },
@@ -311,22 +311,22 @@ public class CuatroEnLineaTest {
 
 	@Test
 	public void alComenzarElJuegoNoSeObtieneElNombreDeUnGanador() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		assertNull(miJuego.obtenerGanador());
 	}
 
 	@Test
 	public void despuesDeUnaPartidaConElPrimerJugadorGanadorSeObtieneSuNombreComoGanador() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		jugarPartida(new int[] { 1, 1, 2, 2, 3, 3, 4 }, miJuego);
-		assertTrue(miJuego.obtenerGanador().equals("jugadorRojo"));
+		assertTrue(miJuego.obtenerGanador().equals("jugadorAmarillo"));
 	}
 
 	@Test
 	public void despuesDeUnaPartidaConElSegundoJugadorGanadorSeObtieneSuNombreComoGanador() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		jugarPartida(new int[] { 1, 2, 1, 2, 1, 2, 3, 2 }, miJuego);
 		assertTrue(miJuego.obtenerGanador().equals("jugadorVerde"));
@@ -334,7 +334,7 @@ public class CuatroEnLineaTest {
 
 	@Test
 	public void despuesDeUnaPartidaEmpatadaNoSeObtieneElNombreDeUnGanador() {
-		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorRojo",
+		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		jugarPartida(
 				new int[] { 1, 2, 1, 2, 1, 2, 3, 4, 3, 4, 3, 4, 2, 1, 4, 3 },
