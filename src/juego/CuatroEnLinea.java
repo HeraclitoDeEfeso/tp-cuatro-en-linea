@@ -113,7 +113,7 @@ public class CuatroEnLinea {
 	public void soltarFicha(int columna) {
 		if (!termino()) {
 			columna--;
-			if (columna < 0 || columna > contarColumnas()
+			if (columna < 0 || columna >= contarColumnas()
 					|| noQuedanCasillerosVaciosEnLaColumna(columna)) {
 				throw new Error(
 						"La columna seleccionada no puede ser seleccionada");
@@ -228,9 +228,9 @@ public class CuatroEnLinea {
 		String ganador = "Empataron";
 		if (hayGanador()) {
 			if (jugadorActual == jugadorRojo) {
-				ganador = jugadorVerde;
-			} else {
 				ganador = jugadorRojo;
+			} else {
+				ganador = jugadorVerde;
 			}
 		}
 
