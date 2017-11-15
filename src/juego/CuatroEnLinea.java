@@ -125,12 +125,12 @@ public class CuatroEnLinea {
 					fila--;
 				}
 			}
-			if (jugadorActual == jugadorRojo) {
-				casilleros[columna][fila] = Casillero.ROJO;
+				if (jugadorActual == jugadorAmarillo) {
+				casilleros[columna][fila] = Casillero.AMARILLO;
 				jugadorActual = jugadorVerde;
 			} else {
 				casilleros[columna][fila] = Casillero.VERDE;
-				jugadorActual = jugadorRojo;
+				jugadorActual = jugadorAmarillo;
 			}
 		}
 	}
