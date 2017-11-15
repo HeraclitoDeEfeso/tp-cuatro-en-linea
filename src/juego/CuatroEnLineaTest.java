@@ -49,7 +49,7 @@ public class CuatroEnLineaTest {
 	}
 
 	@Test(expected = Error.class)
-	public void crearUnCruatroEnLineaConCantidadDeFilasInferiorAlMinimoSinNombreDeJugadorRojo() {
+	public void crearUnCruatroEnLineaConCantidadDeFilasInferiorAlMinimoSinNombreDeJugadorAmarillo() {
 		new CuatroEnLinea(3, 4, "", "jugadorVerde");
 	}
 
@@ -75,7 +75,7 @@ public class CuatroEnLineaTest {
 
 	@Test(expected = Error.class)
 	public void crearUnCruatroEnLineaConCantidadDeFilasYDeColumnasInferiorAlMinimoSinNombreDeJugadorVerde() {
-		new CuatroEnLinea(3, 3, "jugadorRojo", null);
+		new CuatroEnLinea(3, 3, "jugadorAmarillo", null);
 	}
 
 	@Test(expected = Error.class)
@@ -188,7 +188,7 @@ public class CuatroEnLineaTest {
 	}
 
 	@Test
-	public void verificarQueElPrimeroEnJugarSeaElPrimerJugadorDeFichasRojas() {
+	public void verificarQueElPrimeroEnJugarSeaElPrimerJugadorDeFichasAmarillas() {
 		CuatroEnLinea miJuego = new CuatroEnLinea(4, 4, "jugadorAmarillo",
 				"jugadorVerde");
 		miJuego.soltarFicha(1);
@@ -210,7 +210,7 @@ public class CuatroEnLineaTest {
 				"jugadorVerde");
 		miJuego.soltarFicha(1);
 		miJuego.soltarFicha(1);
-		assertTrue(miJuego.obtenerCasillero(4, 1) == Casillero.ROJO
+		assertTrue(miJuego.obtenerCasillero(4, 1) == Casillero.AMARILLO
 				&& miJuego.obtenerCasillero(3, 1) == Casillero.VERDE);
 	}
 
@@ -234,11 +234,11 @@ public class CuatroEnLineaTest {
 		Casillero[][] tableroEsperado = {
 				{ Casillero.VERDE, Casillero.VACIO, Casillero.VACIO,
 						Casillero.VACIO },
-				{ Casillero.ROJO, Casillero.VACIO, Casillero.VACIO,
+				{ Casillero.AMARILLO, Casillero.VACIO, Casillero.VACIO,
 						Casillero.VACIO },
 				{ Casillero.VERDE, Casillero.VACIO, Casillero.VACIO,
 						Casillero.VACIO },
-				{ Casillero.ROJO, Casillero.ROJO, Casillero.VACIO,
+				{ Casillero.AMARILLO, Casillero.ROJO, Casillero.VACIO,
 						Casillero.VACIO } };
 		assertTrue(Arrays.deepEquals(tableroEsperado, obtenerTablero(miJuego)));
 	}
