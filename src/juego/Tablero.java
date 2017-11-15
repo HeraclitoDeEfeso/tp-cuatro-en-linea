@@ -1,20 +1,25 @@
 package juego;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+
 /**
- * Representación gráfica del Tablero del Juego Cuatro en Lí­nea.
+ * RepresentaciÃ³n grÃ¡fica del Tablero del Juego Cuatro en LÃ­Â­nea.
  * 
  */
 public class Tablero {
@@ -69,11 +74,14 @@ public class Tablero {
 		for (int columna = 1; columna <= juego.contarColumnas(); columna++) {
 
 			Button botonSoltarFicha = new Button("soltar");
+			botonSoltarFicha.setFont(Font.font("Bernard MT Condensed",FontWeight.BOLD,FontPosture.REGULAR, 15));
 			botonSoltarFicha.setMinHeight(ALTURA_BOTON);
 
 			botonSoltarFicha.setOnAction(new SoltarFicha(this, juego, columna));
 			botonSoltarFicha.setMinWidth(ANCHO_COLUMNA);
 			grilla.add(botonSoltarFicha, columna - 1, 0);
+			grilla.setStyle("-fx-background-color:black");
+
 		}
 	}
 	
@@ -99,7 +107,7 @@ public class Tablero {
 	 * post: dibuja y devuelve el casillero dado.
 	 * 
 	 * @param casillero
-	 * @return representación gráfica del Casillero.
+	 * @return representaciÃ³n grÃ¡fica del Casillero.
 	 */
 	private Circle dibujarCasillero(Casillero casillero) {
 		
@@ -123,12 +131,12 @@ public class Tablero {
 
 		switch (casillero) {
 		
-			case VERDE:
+			case AMARILLO:
 				pintura = Color.YELLOW;
 				break;
 				
-			case ROJO:
-				pintura = Color.RED;
+			case VERDE:
+				pintura = Color.GREEN;
 				break;
 				
 			default:
@@ -136,10 +144,11 @@ public class Tablero {
 		}
 
 		return pintura;
+
 	}
 
 	/**
-	 * pre : el juego asociado terminó.
+	 * pre : el juego asociado terminÃ³.
 	 * post: muestra un mensaje indicando el resultado del juego.
 	 */
 	public void mostrarResultado() {
@@ -149,19 +158,35 @@ public class Tablero {
 		BorderPane panelGanador = new BorderPane();
 		panelGanador.setPadding(new Insets(10.0));
 		Text textoResultado;
-		Font fuente = new Font(40.0);
+		Text reiniciar= new Text("Â¿Desea Reiniciar?");
+		reiniciar.setFont(Font.font("verdana",FontWeight.BOLD,FontPosture.ITALIC, 25.0));
+		reiniciar.setFill(Color.WHITE);
+		
+		Button BotnoReiniciar = new Button(" REINICIAR JUEGO ");
+		
+		BorderPane.setAlignment(BotnoReiniciar, Pos.CENTER);
+		
+		
 		
 		if (juego.hayGanador()) {
-		
-			textoResultado = new Text("Ganó el jugador " + juego.obtenerGanador());
+				
+			textoResultado = new Text("GanÃ³ el jugador " + juego.obtenerGanador());
+			textoResultado.setFont(Font.font("verdana",FontWeight.BOLD,FontPosture.ITALIC, 40.0));
+			textoResultado.setFill(Color.WHITE);
 			
 		} else {
 			
 			textoResultado = new Text("Empataron");
 		}
 		
-		textoResultado.setFont(fuente);
-		panelGanador.setCenter(textoResultado);
+		
+		
+		panelGanador.setTop(textoResultado);
+		panelGanador.setCenter(reiniciar);
+		panelGanador.setBottom(BotnoReiniciar);
+		panelGanador.setStyle("-fx-background-color:black");
+		
+
 		
 		Scene escenaGanador = new Scene(panelGanador);
 		
@@ -171,5 +196,7 @@ public class Tablero {
 		dialogo.setResizable(false);
 		
 		dialogo.showAndWait();
+		
 	}
+	
 }
