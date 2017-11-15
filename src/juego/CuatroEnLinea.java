@@ -12,7 +12,7 @@ public class CuatroEnLinea {
 
 	private int filas = 0;
 	private int columnas = 0;
-	private String jugadorRojo;
+	private String jugadorAmarillo;
 	private String jugadorVerde;
 	private String jugadorActual;
 	private Casillero[][] casilleros;
@@ -33,7 +33,7 @@ public class CuatroEnLinea {
 	 * @param jugadorVerde
 	 *            : nombre del jugador con fichas verde.
 	 */
-	public CuatroEnLinea(int filas, int columnas, String jugadorRojo,
+	public CuatroEnLinea(int filas, int columnas, String jugadorAmarillo,
 			String jugadorVerde) {
 		if (filas > 15) {
 			throw new Error("El número de filas no debe superar el 15");
@@ -55,7 +55,7 @@ public class CuatroEnLinea {
 		}
 		this.filas = filas;
 		this.columnas = columnas;
-		this.jugadorRojo = jugadorRojo;
+		this.jugadorRojo = jugadorAmarillo;
 		this.jugadorVerde = jugadorVerde;
 		this.jugadorActual = jugadorRojo;
 		casilleros = new Casillero[columnas][filas];
@@ -227,8 +227,8 @@ public class CuatroEnLinea {
 	public String obtenerGanador() {
 		String ganador = "Empataron";
 		if (hayGanador()) {
-			if (jugadorActual == jugadorRojo) {
-				ganador = jugadorRojo;
+			if (jugadorActual == jugadorAmarillo) {
+				ganador = jugadorAmarillo;
 			} else {
 				ganador = jugadorVerde;
 			}
