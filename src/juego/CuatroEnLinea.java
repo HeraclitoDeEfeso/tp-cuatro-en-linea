@@ -194,16 +194,28 @@ public class CuatroEnLinea {
 		boolean alguienGano = false;
 		for (int i = 0; i < contarColumnas(); i++) {
 			for (int j = 0; j < contarFilas(); j++) {
+				alguienGano = alguienGano 
+						      || hayGanadorVertical(i, j)
+						      || hayGanadorHorizontal(i, j)
+						      || hayGanadorDiagonalDecreciente(i, j)
+						      || hayGanadorDiagonalCreciente(i, j);
 
-				if (hayGanadorVertical(i, j)) {
-					alguienGano = true;
-				} else if (hayGanadorHorizontal(i, j)) {
-					alguienGano = true;
-				} else if (hayGanadorDiagonalDecreciente(i, j)) {
-					alguienGano = true;
-				} else if (hayGanadorDiagonalCreciente(i, j)) {
-					alguienGano = true;
-				}
+//				// O lo que es igual
+//
+//				alguienGano |= hayGanadorVertical(i, j)
+//					           || hayGanadorHorizontal(i, j)
+//					           || hayGanadorDiagonalDecreciente(i, j)
+//					           || hayGanadorDiagonalCreciente(i, j);
+				
+//				if (hayGanadorVertical(i, j)) {
+//					alguienGano = true;
+//				} else if (hayGanadorHorizontal(i, j)) {
+//					alguienGano = true;
+//				} else if (hayGanadorDiagonalDecreciente(i, j)) {
+//					alguienGano = true;
+//				} else if (hayGanadorDiagonalCreciente(i, j)) {
+//					alguienGano = true;
+//				}
 
 			}
 		}
@@ -267,20 +279,20 @@ public class CuatroEnLinea {
 	}
 
 	/**
-	 * pre : el juego terminó. post: devuelve el nombre del jugador que ganó el
-	 * juego. O en su defecto si empataron
+	 * pre : el juego terminó.
+	 * post: devuelve el nombre del jugador que ganó el juego.
 	 */
+	
 	public String obtenerResultado() {
 		String ganador = null;
 
-		if (noExistenCasillerosVaciosEnElTablero()) {
-			ganador = "Empataron";
-		}
-		if (hayGanador()) {
-			if (jugadorActual == jugadorAmarillo) {
-				ganador = jugadorAmarillo;
-			} else if (jugadorActual == jugadorVerde) {
+		if (hayGanador()) {		
+			// El partido terminó pero el turno igual avanzó.
+			// Ganó el jugador del turno anterior
+			if(jugadorActual == jugadorAmarillo){
 				ganador = jugadorVerde;
+			} else {
+				ganador = jugadorAmarillo;
 			}
 		}
 

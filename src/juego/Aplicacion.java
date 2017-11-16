@@ -1,28 +1,19 @@
 package juego;
 
-import java.io.File;
-
 import javafx.application.Application;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * Aplicación del juego Cuatro en Lí­nea.
@@ -49,8 +40,7 @@ public class Aplicacion extends Application {
 	private TextField campoFilas;
 
 	private Button botonIniciar;
-	private Stage miEscenario;
-
+	
 	@Override
 	public void start(Stage escenarioPrincipal) {
 		
@@ -67,7 +57,6 @@ public class Aplicacion extends Application {
 		escenarioPrincipal.setScene(escena);
 		escenarioPrincipal.setTitle(TITULO);
 		escenarioPrincipal.show();
-		miEscenario = escenarioPrincipal;
 	}
 
 	private void crearGrilla() {
