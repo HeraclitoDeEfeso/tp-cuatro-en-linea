@@ -170,7 +170,7 @@ public class Tablero {
 		
 		if (juego.hayGanador()) {
 				
-			textoResultado = new Text("Ganó el jugador " + juego.obtenerGanador());
+			textoResultado = new Text("Ganó el jugador " + juego.obtenerResultado());
 			textoResultado.setFont(Font.font("verdana",FontWeight.BOLD,FontPosture.ITALIC, 40.0));
 			textoResultado.setFill(Color.WHITE);
 			
@@ -200,3 +200,4 @@ public class Tablero {
 	}
 	
 }
+
