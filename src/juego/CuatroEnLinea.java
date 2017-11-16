@@ -16,48 +16,51 @@ public class CuatroEnLinea {
 	private String jugadorVerde;
 	private String jugadorActual;
 	private Casillero[][] casilleros;
+	public Error campoNombreVacio = new Error(
+			"El campo de un jugador se encuentra vacio");
+	public Error filasYColumnasDebenSerMayorACuatro = new Error(
+			"Las filas y las columnas deben ser mayores o iguales a 4 ");
+	public Error filasYColumnasNoDebenSuperarLos15 = new Error(
+			"Las filas y las columnas no deben ser mayores a 15;");
+	public Error losNombresNoPuedenSerIguales = new Error(
+			"Los nombres de los jugadores deben ser diferentes");
 
 	/**
-	 * pre : 'filas' y 'columnas' son mayores o iguales a 4 y menores a 16, los 
-	 * nombres de los jugadores no pueden estar vacios. 
-	 * Post: empieza el juego entre el jugador que tiene fichas rojas, identificado
-	 * como 'jugadorRojo' y el jugador que tiene fichas verdes, identificado como 
-	 * 'jugadorVerde'. Todo el tablero está vacío.
+	 * pre : 'filas' y 'columnas' son mayores o iguales a 4 y menores a 16, los
+	 * nombres de los jugadores no pueden estar vacios. Post: empieza el juego
+	 * entre el jugador que tiene fichas rojas, identificado como 'jugadorRojo'
+	 * y el jugador que tiene fichas verdes, identificado como 'jugadorVerde'.
+	 * Todo el tablero está vacío.
 	 * 
 	 * @param filas
 	 *            : cantidad de filas que tiene el tablero.
 	 * @param columnas
 	 *            : cantidad de columnas que tiene el tablero.
-	 * @param jugadorRojo
+	 * @param jugadorAmarillo
 	 *            : nombre del jugador con fichas rojas.
 	 * @param jugadorVerde
 	 *            : nombre del jugador con fichas verde.
 	 */
 	public CuatroEnLinea(int filas, int columnas, String jugadorAmarillo,
 			String jugadorVerde) {
-		if (filas > 15) {
-			throw new Error("El número de filas no debe superar el 15");
+		if (columnas > 15 || filas > 15) {
+			throw filasYColumnasNoDebenSuperarLos15;
 		}
-		if (columnas > 15) {
-			throw new Error("El número de columnas no debe superar el 15");
+		if (columnas < 4 || filas < 4) {
+			throw filasYColumnasDebenSerMayorACuatro;
 		}
-		if (filas < 4) {
-			throw new Error("El número de filas deben ser por lo menos 4");
+		if ((jugadorVerde == null) || (jugadorVerde.equals(""))
+				|| (jugadorAmarillo == null) || (jugadorAmarillo.equals(""))) {
+			throw campoNombreVacio;
 		}
-		if (columnas < 4) {
-			throw new Error("El número de columnas debe ser por lo menos 4");
-		}
-		if ((jugadorRojo == null) || (jugadorRojo.equals(""))) {
-			throw new Error("El campo Jugador Rojo no puede estar vacío");
-		}
-		if ((jugadorVerde == null) || (jugadorVerde.equals(""))) {
-			throw new Error("El campo Jugador Amarillo no puede estar vacío");
+		if (jugadorVerde == jugadorAmarillo) {
+			throw losNombresNoPuedenSerIguales;
 		}
 		this.filas = filas;
 		this.columnas = columnas;
-		this.jugadorRojo = jugadorAmarillo;
+		this.jugadorAmarillo = jugadorAmarillo;
 		this.jugadorVerde = jugadorVerde;
-		this.jugadorActual = jugadorRojo;
+		this.jugadorActual = jugadorAmarillo;
 		casilleros = new Casillero[columnas][filas];
 
 		for (int i = 0; i < columnas; i++) {
@@ -113,37 +116,37 @@ public class CuatroEnLinea {
 	public void soltarFicha(int columna) {
 		if (!termino()) {
 			columna--;
-			if (columna < 0 || columna >= contarColumnas()
-					|| noQuedanCasillerosVaciosEnLaColumna(columna)) {
-				throw new Error(
-						"La columna seleccionada no puede ser seleccionada");
-			}
-
-			int fila = filas - 1;
-			for (int i = 0; i < casilleros[columna].length; i++) {
-				if (casilleros[columna][i] != Casillero.VACIO) {
-					fila--;
+			if (!(columna < 0 || columna >= contarColumnas() || noQuedanCasillerosVaciosEnLaColumna(columna))) {
+				int fila = filas - 1;
+				for (int i = 0; i < casilleros[columna].length; i++) {
+					if (casilleros[columna][i] != Casillero.VACIO) {
+						fila--;
+					}
 				}
-			}
 				if (jugadorActual == jugadorAmarillo) {
-				casilleros[columna][fila] = Casillero.AMARILLO;
-				jugadorActual = jugadorVerde;
-			} else {
-				casilleros[columna][fila] = Casillero.VERDE;
-				jugadorActual = jugadorAmarillo;
+					casilleros[columna][fila] = Casillero.AMARILLO;
+					if (!termino()) {
+						jugadorActual = jugadorVerde;
+					}
+				} else {
+					casilleros[columna][fila] = Casillero.VERDE;
+					if (!termino()) {
+						jugadorActual = jugadorAmarillo;
+					}
+				}
 			}
 		}
 	}
 
-	/**Post: indica si quedan casilleros vacios en la columna */
+	/** Post: indica si quedan casilleros vacios en la columna */
 	private boolean noQuedanCasillerosVaciosEnLaColumna(int columna) {
-		boolean estanTodosLosCasillerosOcupados = false;
+		boolean noHayCasilleroVacio = true;
 		for (int j = 0; j < contarFilas(); j++) {
 			if (casilleros[columna][j] == Casillero.VACIO) {
-				estanTodosLosCasillerosOcupados = false;
+				noHayCasilleroVacio = false;
 			}
 		}
-		return estanTodosLosCasillerosOcupados;
+		return noHayCasilleroVacio;
 	}
 
 	/**
@@ -152,15 +155,15 @@ public class CuatroEnLinea {
 	 */
 	public boolean termino() {
 		boolean partidoTerminado = false;
-		if (hayGanador() || noExistenCasillerosVacios()) {
+		if (hayGanador() || noExistenCasillerosVaciosEnElTablero()) {
 			partidoTerminado = true;
 		}
 
 		return partidoTerminado;
 	}
 
-	/** POST; indica si existe algun casillero vacio */
-	private boolean noExistenCasillerosVacios() {
+	/** POST; indica si existe algun casillero vacio en el tablero */
+	private boolean noExistenCasillerosVaciosEnElTablero() {
 		boolean estanTodosLosCasillerosOcupados = true;
 		for (int i = 0; i < contarColumnas(); i++) {
 			for (int j = 0; j < contarFilas(); j++) {
@@ -172,64 +175,111 @@ public class CuatroEnLinea {
 		return estanTodosLosCasillerosOcupados;
 	}
 
+	// private int buscarCasillerosIgualesEnDireccion(int posicionFila, int
+	// posicionColumna, int incrementoFila, int incrementoColumna){
+	// int casilleroIguales = 0;
+	// for(int i = posicionFila, j = posicionColumna; i <= contarFilas() && j <=
+	// contarColumnas(); i += incrementoFila, j += incrementoFila ){
+	// if(obtenerCasillero(posicionFila, posicionColumna) == obtenerCasillero(i,
+	// j)){
+	// casilleroIguales++;
+	// }
+	// }
+	// return casilleroIguales;
+	// }
+
 	/** post: indica si el juego terminó y tiene un ganador. */
 	public boolean hayGanador() {
 
 		boolean alguienGano = false;
 		for (int i = 0; i < contarColumnas(); i++) {
 			for (int j = 0; j < contarFilas(); j++) {
-				// vertical
-				if (j + 3 < contarFilas()
-						&& casilleros[i][j] != Casillero.VACIO
-						&& casilleros[i][j] == casilleros[i][j + 1]
-						&& casilleros[i][j] == casilleros[i][j + 2]
-						&& casilleros[i][j] == casilleros[i][j + 3]) {
 
+				if (hayGanadorVertical(i, j)) {
+					alguienGano = true;
+				} else if (hayGanadorHorizontal(i, j)) {
+					alguienGano = true;
+				} else if (hayGanadorDiagonalDecreciente(i, j)) {
+					alguienGano = true;
+				} else if (hayGanadorDiagonalCreciente(i, j)) {
 					alguienGano = true;
 				}
-				// horizontal
-				if (i + 3 < contarColumnas()
-						&& casilleros[i][j] != Casillero.VACIO
-						&& casilleros[i][j] == casilleros[i + 1][j]
-						&& casilleros[i][j] == casilleros[i + 2][j]
-						&& casilleros[i][j] == casilleros[i + 3][j]) {
 
-					alguienGano = true;
-				}
-				if (i + 3 < contarColumnas() && j + 3 < contarFilas()) {
-					//diagonal decreciente "\"
-					if (casilleros[i][j] != Casillero.VACIO
-							&& casilleros[i][j] == casilleros[i + 1][j + 1]
-							&& casilleros[i][j] == casilleros[i + 2][j + 2]
-							&& casilleros[i][j] == casilleros[i + 3][j + 3]) {
-
-						alguienGano = true;
-					}
-					//diagonal creciente "/" 
-					if (casilleros[i][j + 3] != Casillero.VACIO
-							&& casilleros[i][j + 3] == casilleros[i + 1][j + 2]
-							&& casilleros[i][j + 3] == casilleros[i + 2][j + 1]
-							&& casilleros[i][j + 3] == casilleros[i + 3][j]) {
-
-						alguienGano = true;
-					}
-				}
 			}
 		}
 
 		return alguienGano;
 	}
 
+	private boolean hayGanadorVertical(int fila, int columna) {
+		boolean alguienGano = false;
+
+		if (columna + 3 < contarColumnas()
+				&& casilleros[fila][columna] != Casillero.VACIO
+				&& casilleros[fila][columna] == casilleros[fila][columna + 1]
+				&& casilleros[fila][columna] == casilleros[fila][columna + 2]
+				&& casilleros[fila][columna] == casilleros[fila][columna + 3]) {
+
+			alguienGano = true;
+		}
+		return alguienGano;
+	}
+
+	private boolean hayGanadorHorizontal(int fila, int columna) {
+		boolean alguienGano = false;
+		if (fila + 3 < contarFilas()
+				&& casilleros[fila][columna] != Casillero.VACIO
+				&& casilleros[fila][columna] == casilleros[fila + 1][columna]
+				&& casilleros[fila][columna] == casilleros[fila + 2][columna]
+				&& casilleros[fila][columna] == casilleros[fila + 3][columna]) {
+
+			alguienGano = true;
+		}
+		return alguienGano;
+	}
+
+	private boolean hayGanadorDiagonalDecreciente(int fila, int columna) {
+		boolean alguienGano = false;
+		if (fila + 3 < contarFilas()
+				&& columna + 3 < contarColumnas()
+				&& casilleros[fila][columna] != Casillero.VACIO
+				&& casilleros[fila][columna] == casilleros[fila + 1][columna + 1]
+				&& casilleros[fila][columna] == casilleros[fila + 2][columna + 2]
+				&& casilleros[fila][columna] == casilleros[fila + 3][columna + 3]) {
+
+			alguienGano = true;
+		}
+		return alguienGano;
+	}
+
+	private boolean hayGanadorDiagonalCreciente(int fila, int columna) {
+		boolean alguienGano = false;
+		if (fila + 3 < contarFilas()
+				&& columna + 3 < contarColumnas()
+				&& casilleros[fila][columna + 3] != Casillero.VACIO
+				&& casilleros[fila][columna + 3] == casilleros[fila + 1][columna + 2]
+				&& casilleros[fila][columna + 3] == casilleros[fila + 2][columna + 1]
+				&& casilleros[fila][columna + 3] == casilleros[fila + 3][columna]) {
+
+			alguienGano = true;
+		}
+		return alguienGano;
+	}
+
 	/**
 	 * pre : el juego terminó. post: devuelve el nombre del jugador que ganó el
-	 * juego.
+	 * juego. O en su defecto si empataron
 	 */
-	public String obtenerGanador() {
-		String ganador = "Empataron";
+	public String obtenerResultado() {
+		String ganador = null;
+
+		if (noExistenCasillerosVaciosEnElTablero()) {
+			ganador = "Empataron";
+		}
 		if (hayGanador()) {
 			if (jugadorActual == jugadorAmarillo) {
 				ganador = jugadorAmarillo;
-			} else {
+			} else if (jugadorActual == jugadorVerde) {
 				ganador = jugadorVerde;
 			}
 		}
