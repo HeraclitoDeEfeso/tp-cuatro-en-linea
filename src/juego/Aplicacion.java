@@ -2,17 +2,20 @@ package juego;
 
 import javafx.application.Application;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -24,36 +27,35 @@ import javafx.stage.Stage;
 public class Aplicacion extends Application {
 
 	public static final String TITULO = "Cuatro en Lí­nea";
-	
+
 	private GridPane grilla;
-	
+
 	private Label jugadorAmarillo = new Label("Jugador Amarillo: ");
 	private Label jugadorVerde = new Label("Jugador verde: ");
 	private Label filas = new Label("filas: ");
 	private Label columnas = new Label("columnas: ");
 
-	
 	private TextField campoNombreJugadorVerde;
 	private TextField campoNombreJugadorAmarillo;
-	
+
 	private TextField campoColumnas;
 	private TextField campoFilas;
 
 	private Button botonIniciar;
-	
+	private Scene escena;
+
 	@Override
 	public void start(Stage escenarioPrincipal) {
-		
-		//String path = "C:/Users/Public/Music/Sample Music/Kalimba.mp3";
-		//Media media = new Media(new File (path).toURI().toString());
-		//MediaPlayer mediaPlayer= new MediaPlayer(media);
-		//mediaPlayer.setAutoPlay(true);
-		//MediaView mediaView = new MediaView(mediaPlayer);
 
+		// String path = "C:/Users/Public/Music/Sample Music/Kalimba.mp3";
+		// Media media = new Media(new File (path).toURI().toString());
+		// MediaPlayer mediaPlayer= new MediaPlayer(media);
+		// mediaPlayer.setAutoPlay(true);
+		// MediaView mediaView = new MediaView(mediaPlayer);
 
 		crearGrilla();
 
-		Scene escena = new Scene(grilla, 400, 300);
+		escena = new Scene(grilla, 400, 300);
 		escenarioPrincipal.setScene(escena);
 		escenarioPrincipal.setTitle(TITULO);
 		escenarioPrincipal.show();
@@ -67,10 +69,10 @@ public class Aplicacion extends Application {
 		grilla.setVgap(20);
 		grilla.setStyle("-fx-background-color:black");
 
-		
 		Text textoTitulo = new Text(TITULO);
 		textoTitulo.setFill(Color.WHITE);
-		textoTitulo.setFont(Font.font("tahoma",FontWeight.BOLD,FontPosture.REGULAR, 30));
+		textoTitulo.setFont(Font.font("tahoma", FontWeight.BOLD,
+				FontPosture.REGULAR, 30));
 
 		crearControles();
 
@@ -84,7 +86,7 @@ public class Aplicacion extends Application {
 		grilla.add(columnas, 0, 4);
 		grilla.add(campoColumnas, 1, 4);
 		grilla.add(botonIniciar, 0, 5, 2, 1);
-		
+
 		GridPane.setHalignment(botonIniciar, HPos.CENTER);
 		GridPane.setHalignment(textoTitulo, HPos.CENTER);
 	}
@@ -92,10 +94,12 @@ public class Aplicacion extends Application {
 	private void crearControles() {
 
 		campoNombreJugadorVerde = new TextField("Verde");
-		campoNombreJugadorVerde.setFont(Font.font("tahoma",FontWeight.BOLD,FontPosture.REGULAR, 15));
+		campoNombreJugadorVerde.setFont(Font.font("tahoma", FontWeight.BOLD,
+				FontPosture.REGULAR, 15));
 		campoNombreJugadorAmarillo = new TextField("amarillo");
-		campoNombreJugadorAmarillo.setFont(Font.font("tahoma",FontWeight.BOLD,FontPosture.REGULAR, 15));
-		
+		campoNombreJugadorAmarillo.setFont(Font.font("tahoma", FontWeight.BOLD,
+				FontPosture.REGULAR, 15));
+
 		campoNombreJugadorVerde.setStyle("-fx-background-color:lightgreen");
 		campoNombreJugadorAmarillo.setStyle("-fx-background-color:yellow");
 
@@ -106,28 +110,54 @@ public class Aplicacion extends Application {
 		botonIniciar.setOnAction(new IniciarJuego(this));
 
 	}
-	
+
 	/**
-	 * post: crea un juego CuatroEnLinea, lo asocia a una Tablero 
-	 * 		 y comienza su ejecución.
+	 * post: crea un juego CuatroEnLinea, lo asocia a una Tablero y comienza su
+	 * ejecución.
 	 * 
 	 */
 	public void iniciar() {
-		
+
 		String nombreJugadorVerde = campoNombreJugadorVerde.getText();
 		String nombreJugadorAmarillo = campoNombreJugadorAmarillo.getText();
 		int filas = Integer.parseInt(campoFilas.getText());
 		int columnas = Integer.parseInt(campoColumnas.getText());
+		CuatroEnLinea juego = null;
+		try {
+			juego = new CuatroEnLinea(filas, columnas, nombreJugadorAmarillo,
+					nombreJugadorVerde);
+		} catch (Error e) {
 
-		CuatroEnLinea juego = new CuatroEnLinea(filas, columnas, nombreJugadorVerde, nombreJugadorAmarillo);
+			Stage dialogo = new Stage();
+
+			BorderPane panelGanador = new BorderPane();
+			panelGanador.setPadding(new Insets(10.0));
+			Text textoResultado = new Text(e.getMessage());
+			textoResultado.setFont(Font.font("verdana", FontWeight.BOLD,
+					FontPosture.ITALIC, 40.0));
+			textoResultado.setFill(Color.WHITE);
+
+			panelGanador.setTop(textoResultado);
+			panelGanador.setStyle("-fx-background-color:black");
+
+			Scene escenaGanador = new Scene(panelGanador);
+
+			dialogo.setScene(escenaGanador);
+			dialogo.initOwner(escena.getWindow());
+			dialogo.initModality(Modality.WINDOW_MODAL);
+			dialogo.setResizable(false);
+			dialogo.showAndWait();
+
+		}
 
 		Tablero tablero = new Tablero(juego);
 		tablero.mostrar();
-		
+
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		launch(args);
 	}
 }
+
