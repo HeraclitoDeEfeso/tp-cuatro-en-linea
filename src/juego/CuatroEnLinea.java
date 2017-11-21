@@ -66,6 +66,7 @@ public class CuatroEnLinea {
 				|| jugadorAmarillo.length() < 3 || jugadorVerde.length() < 3) {
 			throw new Error(
 					"Los nombres de los jugadores deben tener almenos 3 letras");
+		}
 		if (jugadorAmarillo.length() > 15 || jugadorVerde.length() > 15) {
 			throw new Error(
 					"Los nombres de los jugadores deben tener menos de 15 caracteres");
