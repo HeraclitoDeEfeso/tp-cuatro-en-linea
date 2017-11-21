@@ -62,11 +62,10 @@ public class CuatroEnLinea {
 					"Las filas y las columnas deben ser mayores o iguales a 4 ");
 		}
 
-		if (jugadorAmarillo.length() < 3 || jugadorVerde.length() < 3
-				|| jugadorVerde == null || jugadorAmarillo == null) {
+		if (jugadorVerde == null || jugadorAmarillo == null
+				|| jugadorAmarillo.length() < 3 || jugadorVerde.length() < 3) {
 			throw new Error(
 					"Los nombres de los jugadores deben tener almenos 3 letras");
-		}
 		if (jugadorAmarillo.length() > 15 || jugadorVerde.length() > 15) {
 			throw new Error(
 					"Los nombres de los jugadores deben tener menos de 15 caracteres");
