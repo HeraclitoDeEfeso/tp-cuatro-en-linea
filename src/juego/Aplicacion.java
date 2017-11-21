@@ -93,14 +93,27 @@ public class Aplicacion extends Application {
 
 	private void crearControles() {
 
-		campoNombreJugadorVerde = new TextField("Verde");
-		campoNombreJugadorVerde.setFont(Font.font("tahoma", FontWeight.BOLD,
-				FontPosture.REGULAR, 15));
-		campoNombreJugadorAmarillo = new TextField("amarillo");
-		campoNombreJugadorAmarillo.setFont(Font.font("tahoma", FontWeight.BOLD,
-				FontPosture.REGULAR, 15));
+		jugadorAmarillo.setTextFill(Color.YELLOW);
+		jugadorAmarillo.setFont(Font.font("tahoma",FontWeight.BOLD,FontPosture.REGULAR, 15));
 
+		jugadorVerde.setTextFill(Color.LIGHTGREEN);
+		jugadorVerde.setFont(Font.font("tahoma",FontWeight.BOLD,FontPosture.REGULAR, 15));
+		
+		filas.setTextFill(Color.WHITE);
+		filas.setFont(Font.font("tahoma",FontWeight.BOLD,FontPosture.REGULAR, 15));
+
+		
+		columnas.setTextFill(Color.WHITE);
+		columnas.setFont(Font.font("tahoma",FontWeight.BOLD,FontPosture.REGULAR, 15));
+		
+
+		campoNombreJugadorVerde = new TextField("Verde");
+		campoNombreJugadorVerde.setFont(Font.font("tahoma",FontWeight.BOLD,FontPosture.REGULAR, 15));
 		campoNombreJugadorVerde.setStyle("-fx-background-color:lightgreen");
+
+		
+		campoNombreJugadorAmarillo = new TextField("amarillo");
+		campoNombreJugadorAmarillo.setFont(Font.font("tahoma",FontWeight.BOLD,FontPosture.REGULAR, 15));
 		campoNombreJugadorAmarillo.setStyle("-fx-background-color:yellow");
 
 		campoColumnas = new TextField("7");
