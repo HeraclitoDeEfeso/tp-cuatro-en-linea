@@ -10,8 +10,6 @@ package juego;
 
 public class CuatroEnLinea {
 
-	private int filas = 0;
-	private int columnas = 0;
 	private String jugadorAmarillo;
 	private String jugadorVerde;
 	private String jugadorActual;
@@ -35,14 +33,11 @@ public class CuatroEnLinea {
 	 */
 	public CuatroEnLinea(int filas, int columnas, String jugadorAmarillo,
 			String jugadorVerde) {
-		if (validaciones(filas, columnas, jugadorAmarillo, jugadorVerde)) {
-			this.filas = filas;
-			this.columnas = columnas;
-			this.jugadorAmarillo = jugadorAmarillo;
-			this.jugadorVerde = jugadorVerde;
-			this.jugadorActual = jugadorAmarillo;
-			casilleros = new Casillero[columnas][filas];
-		}
+		validaciones(filas, columnas, jugadorAmarillo, jugadorVerde);
+		this.jugadorAmarillo = jugadorAmarillo;
+		this.jugadorVerde = jugadorVerde;
+		this.jugadorActual = jugadorAmarillo;
+		casilleros = new Casillero[columnas][filas];
 		vaciarCasilleros();
 
 	}
@@ -84,8 +79,8 @@ public class CuatroEnLinea {
 	 */
 	public void vaciarCasilleros() {
 
-		for (int i = 0; i < columnas; i++) {
-			for (int j = 0; j < filas; j++) {
+		for (int i = 0; i < casilleros.length; i++) {
+			for (int j = 0; j < casilleros[i].length; j++) {
 				casilleros[i][j] = Casillero.VACIO;
 			}
 		}
@@ -97,7 +92,7 @@ public class CuatroEnLinea {
 	 */
 	public int contarFilas() {
 
-		return this.filas;
+		return casilleros[1].length;
 	}
 
 	/**
@@ -106,7 +101,7 @@ public class CuatroEnLinea {
 	 */
 	public int contarColumnas() {
 
-		return this.columnas;
+		return casilleros.length;
 	}
 
 	/**
@@ -136,8 +131,8 @@ public class CuatroEnLinea {
 	 */
 	public void soltarFicha(int columna) {
 		columna--;
-		int filaDestino = filas - 1;
 		if (!termino() && laColumnaExisteYTieneLugar(columna)) {
+			int filaDestino = casilleros[columna].length - 1;
 			for (int i = 0; i < casilleros[columna].length; i++) {
 				if (casilleros[columna][i] != Casillero.VACIO) {
 					filaDestino--;
@@ -287,4 +282,3 @@ public class CuatroEnLinea {
 		return ganador;
 	}
 }
-
