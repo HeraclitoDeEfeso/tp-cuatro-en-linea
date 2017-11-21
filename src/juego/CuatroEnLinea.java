@@ -201,9 +201,7 @@ public class CuatroEnLinea {
 	}
 
 	/** post: indica si el juego terminó y tiene un ganador. */
-	/*
-	 * post: indica si hay algun ganador.
-	 */
+	
 	public boolean hayGanador() {
 
 		boolean alguienGano = false;
