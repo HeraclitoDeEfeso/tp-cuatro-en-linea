@@ -46,7 +46,7 @@ public class CuatroEnLinea {
 	 * POST : chequea que los parametros ingresados al iniciar el juego sean
 	 * correctos
 	 */
-	private boolean validaciones(int columnas, int filas,
+	private void validaciones(int columnas, int filas,
 			String jugadorAmarillo, String jugadorVerde) {
 		if (columnas > 15 || filas > 15) {
 			throw new Error(
@@ -70,8 +70,7 @@ public class CuatroEnLinea {
 			throw new Error(
 					"Los nombres de los jugadores no pueden ser iguales");
 		}
-		boolean LosParametrosEstanBien = true;
-		return LosParametrosEstanBien;
+	
 	}
 
 	/**
@@ -216,7 +215,7 @@ public class CuatroEnLinea {
 	private boolean hayGanadorVertical(int columna, int fila) {
 		boolean alguienGano = false;
 
-		if (fila + 3 < contarColumnas()
+		if (fila + 3 < contarFilas()
 				&& casilleros[columna][fila] != Casillero.VACIO
 				&& casilleros[columna][fila] == casilleros[columna][fila + 1]
 				&& casilleros[columna][fila] == casilleros[columna][fila + 2]
@@ -229,7 +228,7 @@ public class CuatroEnLinea {
 
 	private boolean hayGanadorHorizontal(int columna, int fila) {
 		boolean alguienGano = false;
-		if (columna + 3 < contarFilas()
+		if (columna + 3 < contarColumnas()
 				&& casilleros[columna][fila] != Casillero.VACIO
 				&& casilleros[columna][fila] == casilleros[columna + 1][fila]
 				&& casilleros[columna][fila] == casilleros[columna + 2][fila]
@@ -242,8 +241,8 @@ public class CuatroEnLinea {
 
 	private boolean hayGanadorDiagonalDecreciente(int columna, int fila) {
 		boolean alguienGano = false;
-		if (columna + 3 < contarFilas()
-				&& fila + 3 < contarColumnas()
+		if (columna + 3 < contarColumnas()
+				&& fila + 3 < contarFilas()
 				&& casilleros[columna][fila] != Casillero.VACIO
 				&& casilleros[columna][fila] == casilleros[columna + 1][fila + 1]
 				&& casilleros[columna][fila] == casilleros[columna + 2][fila + 2]
@@ -256,8 +255,8 @@ public class CuatroEnLinea {
 
 	private boolean hayGanadorDiagonalCreciente(int columna, int fila) {
 		boolean alguienGano = false;
-		if (columna + 3 < contarFilas()
-				&& fila + 3 < contarColumnas()
+		if (columna + 3 < contarColumnas()
+				&& fila + 3 < contarFilas()
 				&& casilleros[columna][fila + 3] != Casillero.VACIO
 				&& casilleros[columna][fila + 3] == casilleros[columna + 1][fila + 2]
 				&& casilleros[columna][fila + 3] == casilleros[columna + 2][fila + 1]
