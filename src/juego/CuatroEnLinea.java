@@ -36,9 +36,8 @@ public class CuatroEnLinea {
 		validaciones(filas, columnas, jugadorAmarillo, jugadorVerde);
 		this.jugadorAmarillo = jugadorAmarillo;
 		this.jugadorVerde = jugadorVerde;
-		this.jugadorActual = jugadorAmarillo;
 		casilleros = new Casillero[columnas][filas];
-		vaciarCasilleros();
+		vaciarCasillerosRecomenzarTurnos();
 
 	}
 
@@ -76,8 +75,8 @@ public class CuatroEnLinea {
 	/**
 	 * post: pone todos los casilleros en blanco(vacio)
 	 */
-	public void vaciarCasilleros() {
-
+	public void vaciarCasillerosRecomenzarTurnos() {
+		this.jugadorActual = jugadorAmarillo;
 		for (int i = 0; i < casilleros.length; i++) {
 			for (int j = 0; j < casilleros[i].length; j++) {
 				casilleros[i][j] = Casillero.VACIO;
@@ -91,7 +90,7 @@ public class CuatroEnLinea {
 	 */
 	public int contarFilas() {
 
-		return casilleros[1].length;
+		return casilleros[0].length;
 	}
 
 	/**
@@ -213,58 +212,37 @@ public class CuatroEnLinea {
 	}
 
 	private boolean hayGanadorVertical(int columna, int fila) {
-		boolean alguienGano = false;
-
-		if (fila + 3 < contarFilas()
+		return (fila + 3 < contarFilas()
 				&& casilleros[columna][fila] != Casillero.VACIO
 				&& casilleros[columna][fila] == casilleros[columna][fila + 1]
 				&& casilleros[columna][fila] == casilleros[columna][fila + 2]
-				&& casilleros[columna][fila] == casilleros[columna][fila + 3]) {
-
-			alguienGano = true;
-		}
-		return alguienGano;
+				&& casilleros[columna][fila] == casilleros[columna][fila + 3]);
 	}
 
 	private boolean hayGanadorHorizontal(int columna, int fila) {
-		boolean alguienGano = false;
-		if (columna + 3 < contarColumnas()
+		return (columna + 3 < contarColumnas()
 				&& casilleros[columna][fila] != Casillero.VACIO
 				&& casilleros[columna][fila] == casilleros[columna + 1][fila]
 				&& casilleros[columna][fila] == casilleros[columna + 2][fila]
-				&& casilleros[columna][fila] == casilleros[columna + 3][fila]) {
-
-			alguienGano = true;
-		}
-		return alguienGano;
+				&& casilleros[columna][fila] == casilleros[columna + 3][fila]);
 	}
 
 	private boolean hayGanadorDiagonalDecreciente(int columna, int fila) {
-		boolean alguienGano = false;
-		if (columna + 3 < contarColumnas()
+		return (columna + 3 < contarColumnas()
 				&& fila + 3 < contarFilas()
 				&& casilleros[columna][fila] != Casillero.VACIO
 				&& casilleros[columna][fila] == casilleros[columna + 1][fila + 1]
 				&& casilleros[columna][fila] == casilleros[columna + 2][fila + 2]
-				&& casilleros[columna][fila] == casilleros[columna + 3][fila + 3]) {
-
-			alguienGano = true;
-		}
-		return alguienGano;
+				&& casilleros[columna][fila] == casilleros[columna + 3][fila + 3]);
 	}
 
 	private boolean hayGanadorDiagonalCreciente(int columna, int fila) {
-		boolean alguienGano = false;
-		if (columna + 3 < contarColumnas()
+		return (columna + 3 < contarColumnas()
 				&& fila + 3 < contarFilas()
 				&& casilleros[columna][fila + 3] != Casillero.VACIO
 				&& casilleros[columna][fila + 3] == casilleros[columna + 1][fila + 2]
 				&& casilleros[columna][fila + 3] == casilleros[columna + 2][fila + 1]
-				&& casilleros[columna][fila + 3] == casilleros[columna + 3][fila]) {
-
-			alguienGano = true;
-		}
-		return alguienGano;
+				&& casilleros[columna][fila + 3] == casilleros[columna + 3][fila]);
 	}
 
 	/**

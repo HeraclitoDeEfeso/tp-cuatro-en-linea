@@ -19,14 +19,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Aplicación del juego Cuatro en Lí­nea.
+ * Aplicación del juego Cuatro en Línea.
  * 
  * Punto de entrada del programa.
  * 
  */
 public class Aplicacion extends Application {
 
-	public static final String TITULO = "Cuatro en Lí­nea";
+	public static final String TITULO = "Cuatro en Línea";
 
 	private GridPane grilla;
 
@@ -48,12 +48,6 @@ public class Aplicacion extends Application {
 	@Override
 	public void start(Stage escenarioPrincipal) {
 
-		// String path = "C:/Users/Public/Music/Sample Music/Kalimba.mp3";
-		// Media media = new Media(new File (path).toURI().toString());
-		// MediaPlayer mediaPlayer= new MediaPlayer(media);
-		// mediaPlayer.setAutoPlay(true);
-		// MediaView mediaView = new MediaView(mediaPlayer);
-		
 		this.escenarioPrincipal=escenarioPrincipal;
 
 		crearGrilla();

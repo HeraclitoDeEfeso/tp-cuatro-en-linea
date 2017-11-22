@@ -162,32 +162,23 @@ public class Tablero {
 		reiniciar.setFont(Font.font("verdana",FontWeight.BOLD,FontPosture.ITALIC, 25.0));
 		reiniciar.setFill(Color.WHITE);
 		
-		Button BotnoReiniciar = new Button(" REINICIAR JUEGO ");
-		BotnoReiniciar.setOnAction(new ReiniciarJuego(this));
-		BorderPane.setAlignment(BotnoReiniciar, Pos.CENTER);
+		Button BotonReiniciar = new Button(" REINICIAR JUEGO ");
+		BotonReiniciar.setOnAction(new ReiniciarJuego(this));
+		BorderPane.setAlignment(BotonReiniciar, Pos.CENTER);
 
-		
-		
-		
 		if (juego.hayGanador()) {
-				
 			textoResultado = new Text("Ganó el jugador " + juego.obtenerResultado());
 			textoResultado.setFont(Font.font("verdana",FontWeight.BOLD,FontPosture.ITALIC, 40.0));
 			textoResultado.setFill(Color.WHITE);
 			
-		} else {
-			
+		} else {	
 			textoResultado = new Text("Empataron");
 		}
 		
-		
-		
 		panelGanador.setTop(textoResultado);
 		panelGanador.setCenter(reiniciar);
-		panelGanador.setBottom(BotnoReiniciar);
+		panelGanador.setBottom(BotonReiniciar);
 		panelGanador.setStyle("-fx-background-color:black");
-		
-
 		
 		Scene escenaGanador = new Scene(panelGanador);
 		
@@ -197,14 +188,14 @@ public class Tablero {
 		dialogo.setResizable(false);
 		
 		dialogo.showAndWait();
-		
 	}
+	
 	public void CerrarPanelGanador(){
 		dialogo.close();
 	}
 	
 	public void llamarReinicioJuego(){
-		juego.vaciarCasilleros();
+		juego.vaciarCasillerosRecomenzarTurnos();
 	}
 }
 
