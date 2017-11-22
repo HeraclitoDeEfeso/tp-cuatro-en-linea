@@ -153,7 +153,7 @@ public class Tablero {
 	 */
 	public void mostrarResultado() {
 
-		Stage dialogo = new Stage();
+		dialogo = new Stage();
 		
 		BorderPane panelGanador = new BorderPane();
 		panelGanador.setPadding(new Insets(10.0));
