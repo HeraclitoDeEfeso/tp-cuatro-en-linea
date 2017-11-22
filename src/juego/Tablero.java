@@ -31,6 +31,7 @@ public class Tablero {
 	private CuatroEnLinea juego;
 	private GridPane grilla;
 	private Stage escenario;
+	private Stage dialogo;
 
 	/**
 	 * post: asocia el Tablero a 'nuevoJuego' y lo inicializa a partir de su estado. 
@@ -162,8 +163,9 @@ public class Tablero {
 		reiniciar.setFill(Color.WHITE);
 		
 		Button BotnoReiniciar = new Button(" REINICIAR JUEGO ");
-		
+		BotnoReiniciar.setOnAction(new ReiniciarJuego(this));
 		BorderPane.setAlignment(BotnoReiniciar, Pos.CENTER);
+
 		
 		
 		
@@ -197,6 +199,12 @@ public class Tablero {
 		dialogo.showAndWait();
 		
 	}
+	public void CerrarPanelGanador(){
+		dialogo.close();
+	}
 	
+	public void llamarReinicioJuego(){
+		juego.vaciarCasilleros();
+	}
 }
 
