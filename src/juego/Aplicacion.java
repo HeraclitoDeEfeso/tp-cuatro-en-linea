@@ -43,6 +43,7 @@ public class Aplicacion extends Application {
 
 	private Button botonIniciar;
 	private Scene escena;
+	private Stage escenarioPrincipal;
 
 	@Override
 	public void start(Stage escenarioPrincipal) {
@@ -143,19 +144,19 @@ public class Aplicacion extends Application {
 
 			Stage dialogo = new Stage();
 
-			BorderPane panelGanador = new BorderPane();
-			panelGanador.setPadding(new Insets(10.0));
-			Text textoResultado = new Text(e.getMessage());
-			textoResultado.setFont(Font.font("verdana", FontWeight.BOLD,
-					FontPosture.ITALIC, 40.0));
-			textoResultado.setFill(Color.WHITE);
+			BorderPane panelError = new BorderPane();
+			panelError.setPadding(new Insets(10.0));
+			Text textoError = new Text(e.getMessage());
+			textoError.setFont(Font.font("verdana", FontWeight.BOLD,
+					FontPosture.ITALIC, 22.0));
+			textoError.setFill(Color.WHITE);
 
-			panelGanador.setTop(textoResultado);
-			panelGanador.setStyle("-fx-background-color:black");
+			panelError.setTop(textoError);
+			panelError.setStyle("-fx-background-color:black");
 
-			Scene escenaGanador = new Scene(panelGanador);
+			Scene escenaError = new Scene(panelError);
 
-			dialogo.setScene(escenaGanador);
+			dialogo.setScene(escenaError);
 			dialogo.initOwner(escena.getWindow());
 			dialogo.initModality(Modality.WINDOW_MODAL);
 			dialogo.setResizable(false);
@@ -165,8 +166,10 @@ public class Aplicacion extends Application {
 
 		Tablero tablero = new Tablero(juego);
 		tablero.mostrar();
-
+		escenarioPrincipal.close();
+		
 	}
+
 
 	public static void main(String[] args) {
 
