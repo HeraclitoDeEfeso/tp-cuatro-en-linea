@@ -53,6 +53,8 @@ public class Aplicacion extends Application {
 		// MediaPlayer mediaPlayer= new MediaPlayer(media);
 		// mediaPlayer.setAutoPlay(true);
 		// MediaView mediaView = new MediaView(mediaPlayer);
+		
+		this.escenarioPrincipal=escenarioPrincipal;
 
 		crearGrilla();
 
